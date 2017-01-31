@@ -11,20 +11,16 @@ $app->get('/', function ($request, $response, $args) {
 })->setName('listado');
 
 
-$app->get('/search', function ($request, $response, $args) {
+$app->post('/search', function ($request, $response, $args) {
 	$um = new emodel\Empleado();
-	//$paramValue = $this->request()->post('email');
-	$value = $app->request->params('email');
 
+	$data = $request->getParam('email');
+	
     return $this->view->render($response, 'listado-empleados.html', [
-        'empleados' => $um->Get($value)
+        'empleados' => $um->Get($data)
     ]);
 })->setName('buscador');
-/*
-$app->get('/search',  function () use ($app) {
-          $paramValue = $app->request()->params('paramName');
-});
-*/
+
 
 $app->get('/empleado/{id}', function ($request, $response, $args) {
 	$um = new emodel\Empleado();
