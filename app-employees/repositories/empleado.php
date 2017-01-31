@@ -60,4 +60,21 @@ class Empleado
         }  
     }
 
+    public function GetSalaryByRange($min, $max)
+    {
+        try {
+            $salMin = $min;
+            $salMax = $max;
+
+            return array_filter($this->data, function($v, $k) use ($info){ 
+                return $v->id == $info;
+            }, ARRAY_FILTER_USE_BOTH);
+
+        } 
+        catch (Exception $e) {
+            $e->getMessage();
+            return $e;
+        }  
+    }
+
 }
