@@ -1,6 +1,7 @@
 <?php
 namespace repositories;
 use models\Empleado as EmpleadoModel;
+use Filter as filter;
 
 class Empleado
 {
@@ -29,19 +30,34 @@ class Empleado
     public function Get($email)
     {
         try {
-            //return array_filter($this->data, "MatchId");
+            $info = $email;
 
-            return array_filter($this->data, function($v, $k){ 
-                //return $v->email == 'foleyday@fanfare.com'; 
-                return $v->email == 'foleyday@fanfare.com'; 
-            }
-                , ARRAY_FILTER_USE_BOTH);
+            return array_filter($this->data, function($v, $k) use ($info){ 
+                return $v->email == $info;
+            }, ARRAY_FILTER_USE_BOTH);
+
         } 
         catch (Exception $e) {
             $e->getMessage();
             return $e;
         }
         
+    }
+
+    public function GetId($id)
+    {
+        try {
+            $info = $id;
+
+            return array_filter($this->data, function($v, $k) use ($info){ 
+                return $v->id == $info;
+            }, ARRAY_FILTER_USE_BOTH);
+
+        } 
+        catch (Exception $e) {
+            $e->getMessage();
+            return $e;
+        }  
     }
 
 }

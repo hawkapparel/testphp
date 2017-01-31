@@ -11,32 +11,35 @@
 
     </head>
     <body>
-        <h1 class="text-center">Empleado</h1>
-
-        <form action="/search" method="get" class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" name="email">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
 
         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Posición</th>
-                    <th>Salario</th>
-                </tr>
-            </thead>
             <tbody>
+
+            <h1 class="text-center">Detalle de empleado</h1>
+
             {% for empleado in empleados %}
                 <tr> 
-                    <th class="row">{{ loop.index }}</th>    
-                    <td><a href="empleado/{{empleado.id}}">{{ empleado.name }}</a></td>
+                    <th class="row">Nombre</th>    
+                    <td>{{ empleado.name }}</td>
+                </tr>
+                <tr> 
+                    <th class="row">Email</th>    
                     <td>{{ empleado.email }}</td>
+                </tr>
+                <tr> 
+                    <th class="row">Phone</th>    
+                    <td>{{ empleado.phone }}</td>
+                </tr>
+                <tr> 
+                    <th class="row">Address</th>    
+                    <td>{{ empleado.address }}</td>
+                </tr>
+                <tr> 
+                    <th class="row">Position</th>    
                     <td>{{ empleado.position }}</td>
+                </tr>
+                <tr> 
+                    <th class="row">Salary</th>    
                     <td>{{ empleado.salary }}</td>
                 </tr>
             {% endfor %}
