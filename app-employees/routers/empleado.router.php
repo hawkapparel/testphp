@@ -10,22 +10,6 @@ $app->get('/', function ($request, $response, $args) {
     ]);
 })->setName('listado');
 
-
-/* 
-$app->get('/getAll', function ($req, $res, $args) {
-    $um = new emodel\Empleado();
-    
-    return $res
-       ->withHeader('Content-type', 'text/xml')
-       ->getBody()
-       ->write(
-        xmlrpc_encode(
-            $um->GetAll()
-        )
-    );
-});
-*/
-
 $app->post('/search', function ($request, $response, $args) {
 	$um = new emodel\Empleado();
 
@@ -45,37 +29,18 @@ $app->get('/empleado/{id}', function ($request, $response, $args) {
     ]);
 })->setName('detalle');
 
-
-//Esta ruta sirve para botar un json
-$app->get('/pruebaapi', function ($req, $res, $args) {
+$app->post('/rangosalarial/{min}/{max}', function ($request, $response, $args) {
     $um = new emodel\Empleado();
-    
-    return $res
+
+    return $response
        ->withHeader('Content-type', 'application/json')
        ->getBody()
        ->write(
-            json_encode(
-                $um->GetAll()
-            )
-    );
-});
-
-/*
-$app->post('/rangosalarial', function ($request, $response, $args) {
-    $um = new emodel\Empleado();
-
-    $min = $request->getParam('min');
-    $max = $request->getParam('max');
-
-    return $response
-       ->withHeader('Content-type', 'text/xml')
-       ->getBody()
-       ->write(
-        xmlrpc_encode(
-            $um->GetSalaryByRange($min, $max)
+        json_encode(
+            $um->GetSalaryByRange($args['min'], $args['max'])
         )
     );
 
 })->setName('rango');
-*/
+
 ?>

@@ -1,12 +1,11 @@
 <?php
 namespace repositories;
 use models\Empleado as EmpleadoModel;
-use Filter as filter;
 
 class Empleado
 {
     private $data;
-    
+
     public function __CONSTRUCT()
     {
         $jsonString = file_get_contents('employees.json');
@@ -63,13 +62,26 @@ class Empleado
     public function GetSalaryByRange($min, $max)
     {
         try {
-            $salMin = $min;
-            $salMax = $max;
 
-            return array_filter($this->data, function($v, $k) use ($info){ 
-                return $v->id == $info;
-            }, ARRAY_FILTER_USE_BOTH);
+            $salMin = floatval($min);
+            $salMax = floatval($max);
+            $selected = array();
+            $info = $this->data;
+            
+            if (is_array($info)) {
+              foreach($info as $key=>$obj) {
 
+                $salary = substr($obj->salary, 1);
+                $salary = floatval( preg_replace('/[^\d.]/', '', $salary) );
+
+                if ($salary > $salMin && $salary < $salMax) {
+                    array_push($selected, $obj);
+                }  
+              }
+            } else {
+                return $selected = 'no results';
+            }
+            return $selected;
         } 
         catch (Exception $e) {
             $e->getMessage();
